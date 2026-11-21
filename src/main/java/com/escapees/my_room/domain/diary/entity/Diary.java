@@ -50,4 +50,13 @@ public class Diary extends Timestamped {
                 .memo(memo)
                 .build();
     }
+
+    public void update(String roomName, String storeName, String withs, Double score, Double scary, String memo) {
+        this.roomName = roomName;
+        this.storeName = storeName;
+        this.withs = withs;
+        this.score = score;
+        this.scary = scary;
+        this.memo = memo;
+    }
 }
