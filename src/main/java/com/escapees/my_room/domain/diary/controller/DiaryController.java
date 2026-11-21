@@ -39,4 +39,11 @@ public class DiaryController {
         List<DiaryResponse> responses = diaryService.getDiaries(userId);
         return ResponseEntity.ok(ApiResponse.success(responses));
     }
+
+    @GetMapping("/{diaryId}")
+    @Operation(summary = "상세 조회")
+    public ResponseEntity<ApiResponse<DiaryResponse>> getDiary(@PathVariable Long diaryId) {
+        DiaryResponse response = diaryService.getDiary(diaryId);
+        return ResponseEntity.ok(ApiResponse.success(response));
+    }
 }

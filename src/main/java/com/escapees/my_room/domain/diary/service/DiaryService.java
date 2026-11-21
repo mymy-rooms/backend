@@ -4,6 +4,8 @@ import com.escapees.my_room.domain.diary.dto.DiaryCreateRequest;
 import com.escapees.my_room.domain.diary.dto.DiaryResponse;
 import com.escapees.my_room.domain.diary.entity.Diary;
 import com.escapees.my_room.domain.diary.repository.DiaryRepository;
+import com.escapees.my_room.global.exception.BusinessException;
+import com.escapees.my_room.global.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,5 +28,10 @@ public class DiaryService {
     public List<DiaryResponse> getDiaries(Long userId) {
         List<Diary> diaries = diaryRepository.findByUserId(userId);
         return diaries.stream().map(DiaryResponse::from).toList();
+    }
+
+    public DiaryResponse getDiary(Long diaryId) {
+        Diary diary = diaryRepository.findById(diaryId).orElseThrow(() -> new BusinessException(ErrorCode.DIARY_NOT_FOUND));
+        return DiaryResponse.from(diary);
     }
 }
