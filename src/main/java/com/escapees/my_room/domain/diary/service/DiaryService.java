@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -19,5 +21,10 @@ public class DiaryService {
     public DiaryResponse create(Long userId, DiaryCreateRequest request) {
         Diary diary = Diary.create(userId, request.roomName(), request.storeName(), request.withs(), request.score(), request.scary(), request.memo());
         return DiaryResponse.from(diaryRepository.save(diary));
+    }
+
+    public List<DiaryResponse> getDiaries(Long userId) {
+        List<Diary> diaries = diaryRepository.findByUserId(userId);
+        return diaries.stream().map(DiaryResponse::from).toList();
     }
 }

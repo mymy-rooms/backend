@@ -12,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/diaries")
@@ -28,5 +30,13 @@ public class DiaryController {
         Long userId = 1L;
         DiaryResponse response = diaryService.create(userId, request);
         return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.success(response));
+    }
+
+    @GetMapping
+    @Operation(summary = "목록 조회")
+    public ResponseEntity<ApiResponse<List<DiaryResponse>>> getDiaries() {
+        Long userId = 1L;
+        List<DiaryResponse> responses = diaryService.getDiaries(userId);
+        return ResponseEntity.ok(ApiResponse.success(responses));
     }
 }
