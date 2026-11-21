@@ -4,7 +4,7 @@ import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 
-public record DiaryCreateRequest(
+public record DiaryRequest(
         @NotBlank String roomName,
         String storeName,
         String withs,
